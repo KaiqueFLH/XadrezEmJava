@@ -11,37 +11,38 @@ public class Bispo extends Peca {
         ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
 
         for (int i = (posicaoTabuleiro % 8 == 0 ? 64 : posicaoTabuleiro + 7); i < tabuleiro.getPosicoes().size(); i += 7) {
-            Peca peca = tabuleiro.getPosicoes().get(i).getPeca();
+            Posicao posicao = tabuleiro.getPosicoes().get(i);
 
-            if (tabuleiro.getPosicoes().get(i) == null) {
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(i));
-            }
+            this.verificaPeca(posicao, possiveisMovimentos);
 
-            if (i % 8 == 0) {
+            if (i % 8 == 0 ||
+                    verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
         }
 
         for (int i = ((posicaoTabuleiro + 1) % 8 == 0 ? 64 : posicaoTabuleiro - 7); i >= tabuleiro.getPosicoes().size(); i -= 7) {
-            Peca peca = tabuleiro.getPosicoes().get(i).getPeca();
+            Posicao posicao = tabuleiro.getPosicoes().get(i);
 
-            if (tabuleiro.getPosicoes().get(i).getPeca() == null) {
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(i));
-            }
+            this.verificaPeca(posicao, possiveisMovimentos);
 
-            if ((i + 1) % 8 == 0) {
+            if ((i + 1) % 8 == 0 ||
+                    verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
         }
 
         for (int i = (posicaoTabuleiro % 8 == 0 ? 64 : posicaoTabuleiro + 9); i < tabuleiro.getPosicoes().size(); i += 9) {
-            Peca peca = tabuleiro.getPosicoes().get(i).getPeca();
+            Posicao posicao = tabuleiro.getPosicoes().get(i);
+
+            this.verificaPeca(posicao, possiveisMovimentos);
 
             if (tabuleiro.getPosicoes().get(i).getPeca() == null) {
                 possiveisMovimentos.add(tabuleiro.getPosicoes().get(i));
             }
 
-            if (i % 8 == 0) {
+            if (i % 8 == 0 ||
+                    verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
         }
@@ -51,7 +52,8 @@ public class Bispo extends Peca {
 
             this.verificaPeca(posicao, possiveisMovimentos);
 
-            if ((i + 1) % 8 == 0) {
+            if ((i + 1) % 8 == 0 ||
+                    verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
         }
