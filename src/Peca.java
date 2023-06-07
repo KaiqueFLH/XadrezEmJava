@@ -20,6 +20,10 @@ public abstract class Peca {
         }
     }
 
+    public Posicao getPosicao() {
+        return posicao;
+    }
+
     public abstract ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
 
     //public abstract char icone();
