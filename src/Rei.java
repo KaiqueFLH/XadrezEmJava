@@ -7,4 +7,5 @@ public class Rei extends Peca {
     public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         return null;
     }
+
 }
