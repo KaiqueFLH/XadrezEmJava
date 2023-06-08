@@ -41,7 +41,7 @@ public class Bispo extends Peca {
                 possiveisMovimentos.add(tabuleiro.getPosicoes().get(i));
             }
 
-            if (i % 8 == 0 ||
+            if ((i + 1) % 8 == 0 ||
                     verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
@@ -52,10 +52,11 @@ public class Bispo extends Peca {
 
             this.verificaPeca(posicao, possiveisMovimentos);
 
-            if ((i + 1) % 8 == 0 ||
+            if (i % 8 == 0 ||
                     verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
+
         }
 
         return possiveisMovimentos;
