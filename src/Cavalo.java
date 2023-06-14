@@ -1,32 +1,16 @@
 import java.util.ArrayList;
 
 public class Cavalo extends Peca {
+
+    public Cavalo(String cor){
+        super(cor);
+    }
     @Override
     public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
 
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
-
-        if (posicaoNoTabuleiro % 8 == 0) {
-            if (posicaoNoTabuleiro > 8 && posicaoNoTabuleiro < 48) {
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 15));
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 6));
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro + 10));
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro + 17));
-            }
-            if (posicaoNoTabuleiro == 0) {
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro + 10));
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro + 17));
-            } else if (posicaoNoTabuleiro == 56) {
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 15));
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 6));
-            } else if (posicaoNoTabuleiro == 8) {
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 17));
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 17));
-                possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 17));
-            }
-        }
 
 //        possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 17));
 //        possiveisMovimentos.add(tabuleiro.getPosicoes().get(posicaoNoTabuleiro - 15));
@@ -50,7 +34,7 @@ public class Cavalo extends Peca {
                     indice == posicaoNoTabuleiro + 15 ||
                     indice == posicaoNoTabuleiro + 17) {
                 //Coluna H.
-                if ((posicaoNoTabuleiro + 1) % 8 == 0 && !(
+                if (validaExtremidade(posicaoNoTabuleiro+1) && !(
                         indice == posicaoNoTabuleiro - 15 ||
                         indice == posicaoNoTabuleiro - 6 ||
                         indice == posicaoNoTabuleiro + 10 ||
@@ -59,7 +43,7 @@ public class Cavalo extends Peca {
 
                 }
                 //Coluna Da A.
-                else if ((posicaoNoTabuleiro) % 8 == 0 && !(
+                else if (validaExtremidade(posicaoNoTabuleiro) && !(
                         indice == posicaoNoTabuleiro - 17 ||
                         indice == posicaoNoTabuleiro - 10 ||
                         indice == posicaoNoTabuleiro + 6 ||
@@ -67,13 +51,13 @@ public class Cavalo extends Peca {
                     verificaPeca(posicao,possiveisMovimentos);
                 }
                 //Coluna B
-                else if((posicaoNoTabuleiro-1)%8==0 && !(
+                else if(validaExtremidade(posicaoNoTabuleiro-1) && !(
                         indice == posicaoNoTabuleiro - 10 ||
                         indice == posicaoNoTabuleiro +6)){
                     verificaPeca(posicao,possiveisMovimentos);
                 }
                 //Coluna G
-                else if((posicaoNoTabuleiro+2)%8 ==0 && !(
+                else if(validaExtremidade(posicaoNoTabuleiro+2) && !(
                         indice == posicaoNoTabuleiro - 15 ||
                                 indice == posicaoNoTabuleiro + 17)){
                     verificaPeca(posicao,possiveisMovimentos);

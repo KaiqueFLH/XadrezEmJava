@@ -4,6 +4,10 @@ public abstract class Peca {
     private String cor;
     private Posicao posicao;
 
+    public Peca(String cor){
+        this.cor = cor;
+    }
+
     public void mover(Tabuleiro tabuleiro, Posicao posicao) {
         ArrayList<Posicao> possiveisPosicoes = possiveisMovimentos(tabuleiro);
 
@@ -30,6 +34,10 @@ public abstract class Peca {
             }
             return true;
         }
+    }
+
+    public boolean validaExtremidade(int posicaoNoTabuleiro){
+        return (posicaoNoTabuleiro) % 8 ==0;
     }
 
     public abstract ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
