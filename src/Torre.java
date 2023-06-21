@@ -1,12 +1,20 @@
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 
 public class Torre extends Peca {
     private boolean primMov;
 
     public Torre(String cor){
         super(cor);
+        this.icone = gerarIcone();
     }
 
+    public char gerarIcone() {
+        if (this.getCor().equals("Branco")) {
+            return '♖';
+        }
+        return '♜';
+    }
 
     @Override
     public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {

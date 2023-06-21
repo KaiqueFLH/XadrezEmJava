@@ -2,10 +2,21 @@ import java.util.ArrayList;
 
 public class Peao extends Peca {
     private boolean primMov;
+    public char icone;
 
     public Peao(String cor){
         super(cor);
+        this.icone = gerarIcone();
     }
+
+    public char gerarIcone() {
+        if (this.getCor().equals("Branco")) {
+            return '♙';
+        }
+        return '♟';
+    }
+
+
 
     @Override
     public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {

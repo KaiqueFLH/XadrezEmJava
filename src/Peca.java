@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public abstract class Peca {
     private String cor;
     private Posicao posicao;
+    public char icone;
 
     public Peca(String cor){
         this.cor = cor;

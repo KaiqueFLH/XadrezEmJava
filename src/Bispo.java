@@ -4,6 +4,14 @@ public class Bispo extends Peca {
 
     public Bispo(String cor){
         super(cor);
+        this.icone = gerarIcone();
+    }
+
+    public char gerarIcone() {
+        if (this.getCor().equals("Branco")) {
+            return '♗';
+        }
+        return '♝';
     }
 
     @Override

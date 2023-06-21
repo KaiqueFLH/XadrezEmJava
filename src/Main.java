@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.RandomAccess;
 import java.util.Scanner;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
         j1.setCor("Branco", tabuleiro);
         j2.setCor("Preto",tabuleiro);
 
-//        geraTabuleiro();
+        geraTabuleiro();
 
         // Escolha da peça
         System.out.println(j1.getPecas());
@@ -32,14 +33,17 @@ public class Main {
         System.out.println(validarVitoria(j2));
     }
 
-//     private static void geraTabuleiro(){
-//        for (Posicao posicao: tabuleiro.getPosicoes()) {
-//            if (tabuleiro.getPosicoes().indexOf(posicao)%8 == 0){
-//                System.out.println("\n");
-//            }
-//            System.out.println(posicao);
-//        }
-//    }
+     private static void geraTabuleiro(){
+        ArrayList<Posicao> posicaoNoTabuleiro = tabuleiro.getPosicoes();
+        for (Posicao posicao : tabuleiro.getPosicoes()) {
+            System.out.println(posicao.getPeca().icone);
+            if ((tabuleiro.getPosicoes().indexOf(posicao)+1)%8 == 0){
+                    System.out.println("\n");
+
+            }
+
+        }
+    }
 
     private static boolean validarVitoria(Jogador adversario){
         for (Peca peca: adversario.getPecas()) {

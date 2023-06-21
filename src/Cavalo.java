@@ -4,7 +4,16 @@ public class Cavalo extends Peca {
 
     public Cavalo(String cor){
         super(cor);
+        this.icone = gerarIcone();
     }
+
+    public char gerarIcone() {
+        if (this.getCor().equals("Branco")) {
+            return '♘';
+        }
+        return '♞';
+    }
+
     @Override
     public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
