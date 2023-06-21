@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 
 public class Tabuleiro {
-    private ArrayList<Posicao> posicoes = new ArrayList<>();
+    private ArrayList<Posicao> posicoes;
 
     public Tabuleiro(){
+        this.posicoes = new ArrayList<>();
         for (int i = 0; i < 64 ; i++) {
             posicoes.add(new Posicao());
             if(i>= 8 && 1<=15){
