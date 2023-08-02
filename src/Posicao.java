@@ -1,6 +1,8 @@
 public class Posicao {
     private Peca peca;
 
+
+
     public Peca getPeca() {
         return peca;
     }
@@ -9,10 +11,10 @@ public class Posicao {
         this.peca = peca;
     }
 
-    @Override
-    public String toString() {
-        return "Posicao{" +
-                "peca=" + peca +
-                '}';
+
+    public String mostraPossiveis(Tabuleiro tabuleiro) {
+        return "As casas das posições possiveis são:{" +
+                tabuleiro.getPosicoes().indexOf(this) +
+                "}";
     }
 }

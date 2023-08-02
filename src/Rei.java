@@ -3,16 +3,16 @@ import java.util.ArrayList;
 public class Rei extends Peca {
     private boolean primMov;
 
-    public Rei(String cor){
-        super(cor);
+    public Rei(String cor, Posicao posicao,int posicaoN){
+        super(cor,posicao,posicaoN);
         this.icone = gerarIcone();
     }
 
-    public char gerarIcone() {
+    public String gerarIcone() {
         if (this.getCor().equals("Branco")) {
-            return '♔';
+            return "( ♔ )";
         }
-        return '♚';
+        return "( ♚ )";
     }
 
     @Override

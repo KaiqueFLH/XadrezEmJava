@@ -3,17 +3,18 @@ import java.util.IllegalFormatCodePointException;
 
 public class Torre extends Peca {
     private boolean primMov;
+    Posicao posicao;
 
-    public Torre(String cor){
-        super(cor);
+    public Torre(String cor, Posicao posicao,int posicaoN){
+        super(cor,posicao,posicaoN);
         this.icone = gerarIcone();
     }
 
-    public char gerarIcone() {
+    public String gerarIcone() {
         if (this.getCor().equals("Branco")) {
-            return '♖';
+            return "( ♖ )";
         }
-        return '♜';
+        return "( ♜ )";
     }
 
     @Override

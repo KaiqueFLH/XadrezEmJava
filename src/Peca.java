@@ -3,10 +3,15 @@ import java.util.ArrayList;
 public abstract class Peca {
     private String cor;
     private Posicao posicao;
-    public char icone;
+    public String icone;
+    public int posicaoN;
+    Tabuleiro tabuleiro;
 
-    public Peca(String cor){
+    public Peca(String cor, Posicao posicao,int posicaoN){
         this.cor = cor;
+        this.posicao = posicao;
+        this.posicaoN = posicaoN;
+
     }
 
     public boolean mover(Tabuleiro tabuleiro, Posicao posicao) {
@@ -56,7 +61,8 @@ public abstract class Peca {
     public String toString() {
         return "Peca{" +
                 "cor='" + cor + '\'' +
-                ", posicao=" + posicao +
+                ", posicao=" + posicaoN +
+                ", icone=" + icone +
                 '}';
     }
 
