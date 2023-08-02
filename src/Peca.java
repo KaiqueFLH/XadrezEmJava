@@ -59,11 +59,9 @@ public abstract class Peca {
 
     @Override
     public String toString() {
-        return "Peca{" +
-                "cor='" + cor + '\'' +
-                ", posicao=" + posicaoN +
-                ", icone=" + icone +
-                '}';
+        return "Peca{"+
+                "icone=" + icone +
+                ", posição=" + posicaoN +" }";
     }
 
     //public abstract char icone();
