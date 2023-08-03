@@ -9,28 +9,30 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
     static boolean vitoria = false;
 
-    public static void main(String[] args) {
 
-        Jogador jogadorAtual = j1;
+    public static void main(String[] args) {
 
         j1.setCor("Branco", tabuleiro);
         j2.setCor("Preto", tabuleiro);
 
+        Jogador jogadorAtual = j1;
+
         geraTabuleiro();
         while (!vitoria) {
             partida(jogadorAtual);
-            jogadorAtual = trocaJogador(jogadorAtual);
         }
     }
 
     public static void partida(Jogador jogadorAtual) {
         while (!vitoria) {
+            validarVitoria(jogadorAtual);
             // Escolha da peça
-            System.out.println(j1.getPecas());
+            listarPecasJogador(jogadorAtual);
             Peca peca = null;
             int escolhaPeca = sc.nextInt();
             // Peca escolhida
-            if (testeContains(j1, tabuleiro.getPosicoes().get(escolhaPeca).getPeca())) {
+            if (testeContains(jogadorAtual, tabuleiro.getPosicoes().get(escolhaPeca).getPeca())) {
+                jogadorAtual = trocaJogador(jogadorAtual);
                 peca = tabuleiro.getPosicoes().get(escolhaPeca).getPeca();
             } else {
                 System.out.println("Peça inválida");
@@ -40,30 +42,38 @@ public class Main {
             // Escolha da posição para o movimento
             ArrayList<Posicao> posicoes = peca.possiveisMovimentos(tabuleiro);
             geraTabuleiroPossibilidades(posicoes);
-            for (Posicao posicao : posicoes) {
-                System.out.println(posicao.mostraPossiveis(tabuleiro));
-            }
+
             int escolhaPosicao = sc.nextInt();
             if (posicoes.contains(tabuleiro.getPosicoes().get(escolhaPosicao))) {
                 Posicao posicao = tabuleiro.getPosicoes().get(escolhaPosicao);
                 // Movimentação da peça escolhida para a posição desejada.
-                j1.moverPeca(peca, posicao, tabuleiro, j2);
+                jogadorAtual.moverPeca(peca, posicao, tabuleiro, j2);
                 geraTabuleiro();
-                jogadorAtual = trocaJogador(jogadorAtual);
+
             } else {
                 System.out.println("Posição invalida");
             }
 
+
         }
     }
 
-    private static Jogador trocaJogador( Jogador jogadorAtual) {
-        if (jogadorAtual == j1) {
+    private static Jogador trocaJogador(Jogador jogadorAtual) {
+        if (jogadorAtual == j1 || jogadorAtual == null) {
             jogadorAtual = j2;
         } else {
             jogadorAtual = j1;
         }
         return jogadorAtual;
+    }
+
+    public static void listarPecasJogador(Jogador jogadorAtual) {
+        System.out.println();
+        for (Posicao indice : tabuleiro.getPosicoes()) {
+            if (jogadorAtual.getPecas().contains(indice.getPeca())) {
+                System.out.printf("/" + indice.getPeca().icone + " - " + tabuleiro.getPosicoes().indexOf(indice));
+            }
+        }
     }
 
     private static boolean testeContains(Jogador jogador, Peca peca) {
@@ -106,9 +116,9 @@ public class Main {
     private static boolean validarVitoria(Jogador adversario) {
         for (Peca peca : adversario.getPecas()) {
             if (peca instanceof Rei) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
