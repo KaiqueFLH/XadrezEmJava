@@ -1,3 +1,3 @@
 # XadrezEmJava
 
-Este é um Projeto realizado em java que consiste em um xadrez que será completamente funcional para o usuário.
+Xadrez feito em java com todas as classes e métodos necessários para o funcionamento.
