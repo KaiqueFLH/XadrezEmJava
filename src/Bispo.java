@@ -23,45 +23,52 @@ public class Bispo extends Peca {
         ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
 
         for (int i = (validaExtremidade(posicaoTabuleiro) ? 64 : posicaoTabuleiro + 7); i < tabuleiro.getPosicoes().size(); i += 7) {
-            Posicao posicao = tabuleiro.getPosicoes().get(i);
+            if (i<64){
+                Posicao posicao = tabuleiro.getPosicoes().get(i);
 
-            this.verificaPeca(posicao, possiveisMovimentos);
+                this.verificaPeca(posicao, possiveisMovimentos);
 
-            if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i)) {
-                break;
+                if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i)) {
+                    break;
+                }
             }
         }
 
-        for (int i = (validaExtremidade(posicaoTabuleiro+1) ? 64 : posicaoTabuleiro - 7); i >= 7; i -= 7) {
-            Posicao posicao = tabuleiro.getPosicoes().get(i);
+        for (int i = (validaExtremidade(posicaoTabuleiro+1) ? -1 : posicaoTabuleiro - 7); i >= 0; i -= 7) {
+            if (i<64){
+                Posicao posicao = tabuleiro.getPosicoes().get(i);
 
-            this.verificaPeca(posicao, possiveisMovimentos);
+                this.verificaPeca(posicao, possiveisMovimentos);
 
-            if (!verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) && !validaExtremidade(i + 1)) {
-                continue;
+                if (!verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) && !validaExtremidade(i + 1)) {
+                    continue;
+                }
+                break;
             }
-            break;
         }
 
         for (int i = (validaExtremidade(posicaoTabuleiro+1)? 64 : posicaoTabuleiro + 9); i < tabuleiro.getPosicoes().size(); i += 9) {
-            Posicao posicao = tabuleiro.getPosicoes().get(i);
+            if (i<64){
+                Posicao posicao = tabuleiro.getPosicoes().get(i);
 
-            this.verificaPeca(posicao, possiveisMovimentos);
+                this.verificaPeca(posicao, possiveisMovimentos);
 
-            if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i+1)) {
-                break;
+                if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i+1)) {
+                    break;
+                }
             }
         }
 
-        for (int i = (validaExtremidade(posicaoTabuleiro) ? 64 : posicaoTabuleiro - 9); i >= 9; i -= 9) {
-            Posicao posicao = tabuleiro.getPosicoes().get(i);
+        for (int i = (validaExtremidade(posicaoTabuleiro) ? 64 : posicaoTabuleiro - 9); i >= 0; i -= 9) {
+            if (i<64){
+                Posicao posicao = tabuleiro.getPosicoes().get(i);
 
-            this.verificaPeca(posicao, possiveisMovimentos);
+                this.verificaPeca(posicao, possiveisMovimentos);
 
-            if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i)) {
-                break;
+                if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i)) {
+                    break;
+                }
             }
-
         }
 
         return possiveisMovimentos;

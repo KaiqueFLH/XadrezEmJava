@@ -27,9 +27,11 @@ public class Main {
         while (!vitoria) {
             validarVitoria(jogadorAtual);
             // Escolha da peça
-            listarPecasJogador(jogadorAtual);
             Peca peca = null;
-            int escolhaPeca = sc.nextInt();
+            menuPartida(jogadorAtual);
+
+            int escolhaPeca=sc.nextInt();
+
             // Peca escolhida
             if (testeContains(jogadorAtual, tabuleiro.getPosicoes().get(escolhaPeca).getPeca())) {
                 jogadorAtual = trocaJogador(jogadorAtual);
@@ -43,14 +45,16 @@ public class Main {
             ArrayList<Posicao> posicoes = peca.possiveisMovimentos(tabuleiro);
             geraTabuleiroPossibilidades(posicoes);
 
+
             int escolhaPosicao = sc.nextInt();
-            if (posicoes.contains(tabuleiro.getPosicoes().get(escolhaPosicao))) {
+            if (escolhaPosicao<63 && escolhaPosicao>=0 && posicoes.contains(tabuleiro.getPosicoes().get(escolhaPosicao))) {
                 Posicao posicao = tabuleiro.getPosicoes().get(escolhaPosicao);
                 // Movimentação da peça escolhida para a posição desejada.
                 jogadorAtual.moverPeca(peca, posicao, tabuleiro, j2);
                 geraTabuleiro();
 
             } else {
+                jogadorAtual = trocaJogador(jogadorAtual);
                 System.out.println("Posição invalida");
             }
 
@@ -80,6 +84,40 @@ public class Main {
         return jogador.getPecas().contains(peca);
     }
 
+    private static void menuPartida(Jogador jogadorAtual){
+        int indice=0;
+        do {
+            System.out.println("""
+                [0] - Escolher Peça.
+                [1] - Propor Empate.
+                """);
+            indice = sc.nextInt();
+        }while (indice<0 || indice>1);
+
+        if (indice == 0) {
+            listarPecasJogador(jogadorAtual);
+        }else {
+            proporEmpate(jogadorAtual);
+        }
+    }
+
+    private static void proporEmpate(Jogador jogadorAtual){
+        int indice =0;
+
+        System.out.println("Você Deseja Aceitar o Empate Proposto?");
+        System.out.println("""
+                [0] - Sim
+                [1] - Não
+                """);
+        indice = sc.nextInt();
+
+        if (indice == 0) {
+            System.out.println("Ambos os Jogadores aceitaram o empate. Portanto o jogo será finalizado!");
+            System.exit(0);
+        }else {
+            menuPartida(jogadorAtual);
+        }
+    }
 
     private static void geraTabuleiro() {
         for (Posicao posicao : tabuleiro.getPosicoes()) {
@@ -99,7 +137,12 @@ public class Main {
     private static void geraTabuleiroPossibilidades(ArrayList<Posicao> posicoes) {
         for (Posicao posicao : tabuleiro.getPosicoes()) {
             if (posicao.getPeca() != null) {
-                System.out.printf(posicao.getPeca().icone);
+                if (posicoes.contains(posicao)){
+                    System.out.printf(posicao.getPeca().icone + tabuleiro.getPosicoes().indexOf(posicao));
+                }
+                else{
+                    System.out.printf(posicao.getPeca().icone);
+                }
             } else if (posicoes.contains(posicao)) {
                 System.out.printf("( " + tabuleiro.getPosicoes().indexOf(posicao) + " )");
             } else {

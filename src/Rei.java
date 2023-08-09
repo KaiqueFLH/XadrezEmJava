@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Rei extends Peca {
     private boolean primMov;
 
-    public Rei(String cor, Posicao posicao,int posicaoN){
-        super(cor,posicao,posicaoN);
+    public Rei(String cor, Posicao posicao, int posicaoN) {
+        super(cor, posicao, posicaoN);
         this.icone = gerarIcone();
     }
 
@@ -36,19 +36,19 @@ public class Rei extends Peca {
                     indice == posicaoNoTabuleiro + 9) {
 
                 //Coluna H.
-                if (validaExtremidade(posicaoNoTabuleiro + 1) && !(
-                        indice == posicaoNoTabuleiro - 7 ||
-                                indice == posicaoNoTabuleiro + 1 ||
-                                indice == posicaoNoTabuleiro + 9)) {
-                    verificaPeca(posicao, possiveisMovimentos);
-
+                if (validaExtremidade(posicaoNoTabuleiro + 1)) {
+                    if (!(indice == posicaoNoTabuleiro - 7 || indice == posicaoNoTabuleiro + 1 || indice == posicaoNoTabuleiro + 9)){
+                        verificaPeca(posicao, possiveisMovimentos);
+                    }
                 }
                 //Coluna Da A.
-                else if (validaExtremidade(posicaoNoTabuleiro) && !(
-                        indice == posicaoNoTabuleiro -9 ||
-                                indice == posicaoNoTabuleiro - 1 ||
-                                indice == posicaoNoTabuleiro +7)) {
-                    verificaPeca(posicao, possiveisMovimentos);
+                else if (validaExtremidade(posicaoNoTabuleiro)) {
+                    if (!(indice == posicaoNoTabuleiro - 9 || indice == posicaoNoTabuleiro - 1 || indice == posicaoNoTabuleiro + 7)){
+                        verificaPeca(posicao, possiveisMovimentos);
+                    }
+                }
+                else{
+                    verificaPeca(posicao,possiveisMovimentos);
                 }
             }
         }
@@ -56,5 +56,4 @@ public class Rei extends Peca {
 
         return possiveisMovimentos;
     }
-
 }

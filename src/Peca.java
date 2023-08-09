@@ -15,7 +15,13 @@ public abstract class Peca {
     }
 
     public boolean mover(Tabuleiro tabuleiro, Posicao posicao) {
+        // Se eu retirar a ArrayList de possiveisPosicoes que chama o método abstrato possiveisMovimentos() é só implementar o this.primMov = false no Peao.
+
         ArrayList<Posicao> possiveisPosicoes = possiveisMovimentos(tabuleiro);
+
+        if (this instanceof Peao){
+            ((Peao) this).setPrimMov(false);
+        }
 
         for (Posicao posicaoPossivel : possiveisPosicoes) {
             if (posicaoPossivel == posicao) {
@@ -62,6 +68,14 @@ public abstract class Peca {
     //public abstract char icone();
 
 
-
-
+    @Override
+    public String toString() {
+        return "Peca{" +
+                "cor='" + cor + '\'' +
+                ", posicao=" + posicao +
+                ", icone='" + icone + '\'' +
+                ", posicaoN=" + posicaoN +
+                ", tabuleiro=" + tabuleiro +
+                '}';
+    }
 }
