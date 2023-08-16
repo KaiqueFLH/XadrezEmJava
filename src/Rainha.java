@@ -32,7 +32,7 @@ public class Rainha extends Peca {
             }
         }
 
-        for (int i = (validaExtremidade(posicaoTabuleiro+1) ? 64 : posicaoTabuleiro - 7); i >= 7; i -= 7) {
+        for (int i = (validaExtremidade(posicaoTabuleiro+1) ? -1 : posicaoTabuleiro - 7); i >= 0; i -= 7) {
             Posicao posicao = tabuleiro.getPosicoes().get(i);
 
             this.verificaPeca(posicao, possiveisMovimentos);
@@ -56,7 +56,7 @@ public class Rainha extends Peca {
             }
         }
 
-        for (int i = (validaExtremidade(posicaoTabuleiro) ? 64 : posicaoTabuleiro - 9); i >= 9; i -= 9) {
+        for (int i = (validaExtremidade(posicaoTabuleiro) ? -1 : posicaoTabuleiro - 9); i >= 0; i -= 9) {
             Posicao posicao = tabuleiro.getPosicoes().get(i);
 
             this.verificaPeca(posicao, possiveisMovimentos);

@@ -7,24 +7,24 @@ public abstract class Peca {
     public int posicaoN;
     Tabuleiro tabuleiro;
 
-    public Peca(String cor, Posicao posicao,int posicaoN){
+    public Peca(String cor, Posicao posicao, int posicaoN) {
         this.cor = cor;
         this.posicao = posicao;
         this.posicaoN = posicaoN;
 
     }
 
-    public boolean mover(Tabuleiro tabuleiro, Posicao posicao) {
+
+    public boolean mover(Tabuleiro tabuleiro, Posicao posicao, ArrayList<Posicao> possiveisMovimentos) {
         // Se eu retirar a ArrayList de possiveisPosicoes que chama o método abstrato possiveisMovimentos() é só implementar o this.primMov = false no Peao.
 
-        ArrayList<Posicao> possiveisPosicoes = possiveisMovimentos(tabuleiro);
 
-        if (this instanceof Peao){
-            ((Peao) this).setPrimMov(false);
-        }
 
-        for (Posicao posicaoPossivel : possiveisPosicoes) {
+        for (Posicao posicaoPossivel : possiveisMovimentos) {
             if (posicaoPossivel == posicao) {
+                if (this instanceof Peao) {
+                    ((Peao) this).setPrimMov(false);
+                }
                 //Atribuindo a peça para a nova posição no tabuleiro
                 posicao.setPeca(this);
                 //Removendo a peça da posição anterior
@@ -49,8 +49,8 @@ public abstract class Peca {
         }
     }
 
-    public boolean validaExtremidade(int posicaoNoTabuleiro){
-        return (posicaoNoTabuleiro) % 8 ==0;
+    public boolean validaExtremidade(int posicaoNoTabuleiro) {
+        return (posicaoNoTabuleiro) % 8 == 0;
     }
 
     public abstract ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
@@ -59,10 +59,13 @@ public abstract class Peca {
         return posicao;
     }
 
+    public void setPosicao(Posicao posicao) {
+        this.posicao = posicao;
+    }
+
     public String getCor() {
         return cor;
     }
-
 
 
     //public abstract char icone();

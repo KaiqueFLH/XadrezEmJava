@@ -28,15 +28,11 @@ public class Peao extends Peca {
         if (this.getCor().equals("Preto")) {
             if (posicoesTabuleiro.get(posicaoNoTabuleiro + 8).getPeca() == null) {
                 possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro + 8));
-                if (posicoesTabuleiro.get(posicaoNoTabuleiro + 16).getPeca() == null) {
-                    if (this.primMov) {
+                if (this.primMov) {
+                    if (posicoesTabuleiro.get(posicaoNoTabuleiro + 16).getPeca() == null) {
                         possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro + 16));
-
                     }
-
                 }
-
-
             }
             if (posicoesTabuleiro.get(posicaoNoTabuleiro + 9).getPeca() != null
                     && !validaExtremidade(posicaoNoTabuleiro + 1)) {
@@ -53,8 +49,8 @@ public class Peao extends Peca {
         } else {
             if (posicoesTabuleiro.get(posicaoNoTabuleiro - 8).getPeca() == null) {
                 possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro - 8));
-                if (posicoesTabuleiro.get(posicaoNoTabuleiro - 16).getPeca() == null) {
-                    if (this.primMov) {
+                if (this.primMov) {
+                    if (posicoesTabuleiro.get(posicaoNoTabuleiro - 16).getPeca() == null) {
                         possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro - 16));
                     }
                 }
@@ -74,6 +70,7 @@ public class Peao extends Peca {
         }
         return possiveisMovimentos;
     }
+
 
     public void setPrimMov(boolean primMov) {
         this.primMov = primMov;

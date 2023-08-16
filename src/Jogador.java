@@ -13,10 +13,10 @@ public class Jogador {
         this.pecas = new ArrayList<>();
     }
 
-    public boolean moverPeca(Peca peca, Posicao posicao, Tabuleiro tabuleiro, Jogador adversario) {
+    public boolean moverPeca(Peca peca, Posicao posicao, Tabuleiro tabuleiro, Jogador adversario, ArrayList<Posicao> movimentos) {
 
         Peca pecaAdversaria = posicao.getPeca();
-        boolean valida = peca.mover(tabuleiro, posicao);
+        boolean valida = peca.mover(tabuleiro, posicao, movimentos);
         if (pecaAdversaria != null && valida) {
             adversario.pecas.remove(pecaAdversaria);
         }

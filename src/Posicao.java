@@ -1,8 +1,6 @@
 public class Posicao {
     private Peca peca;
 
-
-
     public Peca getPeca() {
         return peca;
     }
