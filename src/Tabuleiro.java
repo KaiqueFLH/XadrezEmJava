@@ -7,10 +7,7 @@ public class Tabuleiro {
         this.posicoes = new ArrayList<>();
         for (int i = 0; i < 64 ; i++) {
             posicoes.add(new Posicao());
-            if (i==22){
-                posicoes.get(i).setPeca(new Peao("Branco",posicoes.get(i),i));
-            }
-            else if(i>= 8 && i<=15){
+            if(i>= 8 && i<=15){
                 posicoes.get(i).setPeca(new Peao("Preto",posicoes.get(i),i));
             }
             else if(i>= 48 && i<=55){

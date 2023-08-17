@@ -18,14 +18,14 @@ public class Main {
 
         jogadorAtual = j1;
         jogadorAdversario = j2;
-
         geraTabuleiro();
         partida();
     }
 
     public static void partida() {
         while (!vitoria) {
-            testePromocao(tabuleiro);
+
+
 
             // Escolha da peça
             Peca peca = null;
@@ -42,28 +42,36 @@ public class Main {
             }
 
             // Escolha da posição para o movimento
-            ArrayList<Posicao> posicoes = testeAvisaEmXeque( peca, peca.possiveisMovimentos(tabuleiro), jogadorAdversario);
-
-
-
+            ArrayList<Posicao> posicoes = testeAvisaXequeMate(peca, peca.possiveisMovimentos(tabuleiro), jogadorAdversario);
             geraTabuleiroPossibilidades(posicoes);
 
+            //Verifica os possiveis movimentos de cada peça, e se caso a peça não tenha possiveis movimentos ela não é movida.
+            if (posicoes.size()==0){
+                System.out.println("Voce não pode mover essa peça.");
+                //Volta para o início do loop.
+                continue;
+            }
+            else {
+                System.out.println("Agora escolha a posição que deseja ir.");
+            }
 
             int escolhaPosicao = sc.nextInt();
+
             if (escolhaPosicao < 63 && escolhaPosicao >= 0 && posicoes.contains(tabuleiro.getPosicoes().get(escolhaPosicao))) {
                 Posicao posicao = tabuleiro.getPosicoes().get(escolhaPosicao);
                 // Movimentação da peça escolhida para a posição desejada.
 
-                if(jogadorAtual.moverPeca(peca, posicao, tabuleiro, j2, posicoes)){
-
+                if (jogadorAtual.moverPeca(peca, posicao, tabuleiro, jogadorAdversario, posicoes)) {
                     geraTabuleiro();
+                    testePromocao(tabuleiro);
                     boolean XequeMate = true;
-                    for (Peca pecaAdv: jogadorAdversario.getPecas()) {
-                        if(testeAvisaEmXeque(pecaAdv,pecaAdv.possiveisMovimentos(tabuleiro), jogadorAtual).size() > 0){
+                    for (Peca pecaAdv : jogadorAdversario.getPecas()) {
+                        if (testeAvisaXequeMate(pecaAdv, pecaAdv.possiveisMovimentos(tabuleiro), jogadorAtual).size() > 0) {
                             XequeMate = false;
+
                         }
                     }
-                    if (XequeMate){
+                    if (XequeMate) {
                         System.out.println("Xeque mate");
                         System.out.println(jogadorAtual.getNome() + " Venceu!");
                         System.exit(0);
@@ -81,8 +89,9 @@ public class Main {
         }
     }
 
-    public static ArrayList<Posicao> testeAvisaEmXeque( Peca peca, ArrayList<Posicao> posicoes, Jogador jogadorAdv) {
 
+
+    public static ArrayList<Posicao> testeAvisaXequeMate(Peca peca, ArrayList<Posicao> posicoes, Jogador jogadorAdv) {
         Posicao posicaoAtual = peca.getPosicao();
         ArrayList<Posicao> possiveisMovimentosLimpo = new ArrayList<>(posicoes);
         for (Posicao posicaoTeste : posicoes) {
@@ -117,14 +126,21 @@ public class Main {
     public static void testePromocao(Tabuleiro tabuleiro) {
 
         for (Posicao posicao : tabuleiro.getPosicoes()) {
-            if (tabuleiro.getPosicoes().contains(posicao) && tabuleiro.getPosicoes().indexOf(posicao) < 8 ||
-                    tabuleiro.getPosicoes().indexOf(posicao) >= 56 && tabuleiro.getPosicoes().indexOf(posicao) <= 63) {
+            if (tabuleiro.getPosicoes().indexOf(posicao) < 8) {
+                if (posicao.getPeca() instanceof Peao) {
+                    promoverPeao(posicao);
+                    return;
+                }
+            }
+
+            if (tabuleiro.getPosicoes().indexOf(posicao) >= 56){
                 if (posicao.getPeca() instanceof Peao) {
                     promoverPeao(posicao);
                     return;
                 }
             }
         }
+
     }
 
     public static void promoverPeao(Posicao posicao) {
@@ -143,33 +159,65 @@ public class Main {
                 case 0:
 
                     if (posicao.getPeca().getCor().equals("Branco")) {
-                        posicao.setPeca(new Rainha("Branca", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca rainha = new Rainha("Branco", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(rainha);
+                        rainha.getPosicao().getPeca().setPosicao(null);
+                        rainha.getPosicao().setPeca(rainha);
+                        rainha.setPosicao(posicao);
                     } else {
-                        posicao.setPeca(new Rainha("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca rainha = new Rainha("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(rainha);
+                        rainha.getPosicao().getPeca().setPosicao(null);
+                        rainha.getPosicao().setPeca(rainha);
+                        rainha.setPosicao(posicao);
                     }
                     break;
                 case 1:
 
                     if (posicao.getPeca().getCor().equals("Branco")) {
-                        posicao.setPeca(new Torre("Branco", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca torre = new Torre("Branco", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(torre);
+                        torre.getPosicao().getPeca().setPosicao(null);
+                        torre.getPosicao().setPeca(torre);
+                        torre.setPosicao(posicao);
                     } else {
-                        posicao.setPeca(new Torre("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca torre = new Torre("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(torre);
+                        torre.getPosicao().getPeca().setPosicao(null);
+                        torre.getPosicao().setPeca(torre);
+                        torre.setPosicao(posicao);
                     }
                     break;
                 case 2:
 
                     if (posicao.getPeca().getCor().equals("Branco")) {
-                        posicao.setPeca(new Bispo("Branco", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca bispo = new Bispo("Branco", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(bispo);
+                        bispo.getPosicao().getPeca().setPosicao(null);
+                        bispo.getPosicao().setPeca(bispo);
+                        bispo.setPosicao(posicao);
                     } else {
-                        posicao.setPeca(new Bispo("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca bispo = new Bispo("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(bispo);
+                        bispo.getPosicao().getPeca().setPosicao(null);
+                        bispo.getPosicao().setPeca(bispo);
+                        bispo.setPosicao(posicao);
                     }
                     break;
                 case 3:
 
                     if (posicao.getPeca().getCor().equals("Branco")) {
-                        posicao.setPeca(new Cavalo("Branco", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca cavalo = new Cavalo("Branco", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(cavalo);
+                        cavalo.getPosicao().getPeca().setPosicao(null);
+                        cavalo.getPosicao().setPeca(cavalo);
+                        cavalo.setPosicao(posicao);
                     } else {
-                        posicao.setPeca(new Cavalo("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN));
+                        Peca cavalo = new Cavalo("Preto", posicao.getPeca().getPosicao(), posicao.getPeca().posicaoN);
+                        jogadorAtual.getPecas().add(cavalo);
+                        cavalo.getPosicao().getPeca().setPosicao(null);
+                        cavalo.getPosicao().setPeca(cavalo);
+                        cavalo.setPosicao(posicao);
                     }
                     break;
             }
