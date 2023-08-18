@@ -24,12 +24,13 @@ public class Main {
 
     public static void partida() {
         while (!vitoria) {
-
-
-
             // Escolha da peça
             Peca peca = null;
-            menuPartida();
+            if (testeXeque(jogadorAdversario)){
+                System.out.println("Seu Rei está em Xeque, tome cuidado!!!");
+            }
+
+                menuPartida();
 
             int escolhaPeca = sc.nextInt();
 
@@ -46,12 +47,11 @@ public class Main {
             geraTabuleiroPossibilidades(posicoes);
 
             //Verifica os possiveis movimentos de cada peça, e se caso a peça não tenha possiveis movimentos ela não é movida.
-            if (posicoes.size()==0){
+            if (posicoes.size() == 0) {
                 System.out.println("Voce não pode mover essa peça.");
                 //Volta para o início do loop.
                 continue;
-            }
-            else {
+            } else {
                 System.out.println("Agora escolha a posição que deseja ir.");
             }
 
@@ -89,6 +89,19 @@ public class Main {
         }
     }
 
+    public static boolean testeXeque(Jogador adversario) {
+
+        for (Peca pecaAdv : adversario.getPecas()) {
+            for (Posicao posXeque : pecaAdv.possiveisMovimentos(tabuleiro)) {
+                Peca pecaAdvXeque = posXeque.getPeca();
+                if (pecaAdvXeque instanceof Rei) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
 
     public static ArrayList<Posicao> testeAvisaXequeMate(Peca peca, ArrayList<Posicao> posicoes, Jogador jogadorAdv) {
@@ -133,7 +146,7 @@ public class Main {
                 }
             }
 
-            if (tabuleiro.getPosicoes().indexOf(posicao) >= 56){
+            if (tabuleiro.getPosicoes().indexOf(posicao) >= 56) {
                 if (posicao.getPeca() instanceof Peao) {
                     promoverPeao(posicao);
                     return;
