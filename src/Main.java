@@ -34,56 +34,69 @@ public class Main {
 
             int escolhaPeca = sc.nextInt();
 
-            // Peca escolhida
-            if (testeContains(jogadorAtual, tabuleiro.getPosicoes().get(escolhaPeca).getPeca())) {
-                peca = tabuleiro.getPosicoes().get(escolhaPeca).getPeca();
-            } else {
-                System.out.println("Peça inválida");
-                continue; // Volta ao início do loop para o jogador selecionar outra peça
+            if (escolhaPeca == -1){
+                System.out.println("Você selecionou Voltar!");
             }
-
-            // Escolha da posição para o movimento
-            ArrayList<Posicao> posicoes = testeAvisaXequeMate(peca, peca.possiveisMovimentos(tabuleiro), jogadorAdversario);
-            geraTabuleiroPossibilidades(posicoes);
-
-            //Verifica os possiveis movimentos de cada peça, e se caso a peça não tenha possiveis movimentos ela não é movida.
-            if (posicoes.size() == 0) {
-                System.out.println("Voce não pode mover essa peça.");
-                //Volta para o início do loop.
-                continue;
-            } else {
-                System.out.println("Agora escolha a posição que deseja ir.");
-            }
-
-            int escolhaPosicao = sc.nextInt();
-
-            if (escolhaPosicao < 63 && escolhaPosicao >= 0 && posicoes.contains(tabuleiro.getPosicoes().get(escolhaPosicao))) {
-                Posicao posicao = tabuleiro.getPosicoes().get(escolhaPosicao);
-                // Movimentação da peça escolhida para a posição desejada.
-
-                if (jogadorAtual.moverPeca(peca, posicao, tabuleiro, jogadorAdversario, posicoes)) {
-                    geraTabuleiro();
-                    testePromocao(tabuleiro);
-                    boolean XequeMate = true;
-                    for (Peca pecaAdv : jogadorAdversario.getPecas()) {
-                        if (testeAvisaXequeMate(pecaAdv, pecaAdv.possiveisMovimentos(tabuleiro), jogadorAtual).size() > 0) {
-                            XequeMate = false;
-
-                        }
-                    }
-                    if (XequeMate) {
-                        System.out.println("Xeque mate");
-                        System.out.println(jogadorAtual.getNome() + " Venceu!");
-                        System.exit(0);
-                    }
-                    trocaJogador();
+            else{
+                // Peca escolhida
+                if (testeContains(jogadorAtual, tabuleiro.getPosicoes().get(escolhaPeca).getPeca())) {
+                    peca = tabuleiro.getPosicoes().get(escolhaPeca).getPeca();
                 } else {
-                    System.out.println("Movimento inválido");
+                    System.out.println("Peça inválida");
+                    continue; // Volta ao início do loop para o jogador selecionar outra peça
+                }
+                // Escolha da posição para o movimento
+                ArrayList<Posicao> posicoes = testeAvisaXequeMate(peca, peca.possiveisMovimentos(tabuleiro), jogadorAdversario);
+                geraTabuleiroPossibilidades(posicoes);
+
+                //Verifica os possiveis movimentos de cada peça, e se caso a peça não tenha possiveis movimentos ela não é movida.
+                if (posicoes.size() == 0) {
+                    System.out.println("Voce não pode mover essa peça.");
+                    //Volta para o início do loop.
+                    continue;
+                } else {
+                    System.out.println("Agora escolha a posição que deseja ir.");
                 }
 
-            } else {
-                System.out.println("Posição invalida");
+                int escolhaPosicao = sc.nextInt();
+
+                if (escolhaPosicao==-1){
+                    System.out.println("Você selecionou Voltar!");
+                }
+                else{
+                    if (escolhaPosicao < 63 && escolhaPosicao >= 0 && posicoes.contains(tabuleiro.getPosicoes().get(escolhaPosicao))) {
+                        Posicao posicao = tabuleiro.getPosicoes().get(escolhaPosicao);
+                        // Movimentação da peça escolhida para a posição desejada.
+
+                        if (jogadorAtual.moverPeca(peca, posicao, tabuleiro, jogadorAdversario, posicoes)) {
+                            geraTabuleiro();
+                            testePromocao(tabuleiro);
+                            boolean XequeMate = true;
+                            for (Peca pecaAdv : jogadorAdversario.getPecas()) {
+                                if (testeAvisaXequeMate(pecaAdv, pecaAdv.possiveisMovimentos(tabuleiro), jogadorAtual).size() > 0) {
+                                    XequeMate = false;
+
+                                }
+                            }
+                            if (XequeMate) {
+                                System.out.println("Xeque mate");
+                                System.out.println(jogadorAtual.getNome() + " Venceu!");
+                                System.exit(0);
+                            }
+                            trocaJogador();
+                        } else {
+                            System.out.println("Movimento inválido");
+                        }
+
+                    } else {
+                        System.out.println("Posição invalida");
+                    }
+                }
+
+
+
             }
+
 
 
         }
@@ -254,6 +267,7 @@ public class Main {
                 System.out.printf("/" + indice.getPeca().icone + " - " + tabuleiro.getPosicoes().indexOf(indice));
             }
         }
+        System.out.println("\n[-1] - Voltar.");
     }
 
     private static boolean testeContains(Jogador jogador, Peca peca) {
@@ -270,10 +284,9 @@ public class Main {
             indice = sc.nextInt();
         } while (indice < 0 || indice > 1);
 
-        if (indice == 0) {
-            listarPecasJogador();
-        } else {
-            proporEmpate();
+        switch (indice){
+            case 0 -> listarPecasJogador();
+            case 1 -> proporEmpate();
         }
     }
 
@@ -325,10 +338,10 @@ public class Main {
             }
             if ((tabuleiro.getPosicoes().indexOf(posicao) + 1) % 8 == 0) {
                 System.out.printf("\n");
-
             }
-
         }
+
+        System.out.println("\n[-1] - Voltar.");
     }
 
 }
